@@ -1,85 +1,51 @@
 #include <iostream>
+#include<cstring>
 
 using namespace std;
 
-class Student
+class String
 {
-protected:
-    char name[50];
-    int usn;
-    int age;
+    char *str;
+    int length;
 public:
-    void getdata()
+    String()
     {
-        cout<<"Enter name of the student:\n";
-        cin>>name;
-        cout<<"Enter the usn of the student:\n";
-        cin>>usn;
-        cout<<"Enter the age:\n";
-        cin>>age;
+        length=0;
+        str=new char[length+1];
     }
-    void putdata()
+    String(char *s)
     {
-        cout<<"Name is:"<<name<<endl;
-        cout<<"USN is:"<<usn<<endl;
-        cout<<"Age is:"<<age<<endl;
+        length=strlen(s);
+        str=new char[length+1];
+        str=s;
     }
-};
-
-class Test:public Student
-{
-protected:
-    int sub1,sub2;
-public:
-    void getmarks()
+    void join(String s1,String s2)
     {
-        cout<<"Enter the marks of the subject:\n";
-        cin>>sub1>>sub2;
+        length=s1.length+s2.length;
+        str=new char[length+1];
+        str=strcpy(str,s1.str);
+        str=strcat(str,s2.str);
+        cout<<"The string after concatenation is:"<<str<<endl;
     }
-    void putmarks()
-    {
-        cout<<"Sub 1:"<<sub1<<endl;
-        cout<<"Sub 2:"<<sub2<<endl;
-    }
-};
-
-class Sports
-{
-   protected:
-       int score;
-   public:
-    void getscore()
-    {
-        cout<<"Enter the score:\n";
-        cin>>score;
-    }
-    void putscore()
-    {
-        cout<<"Score: "<<score<<endl;
-    }
-};
-
-class Result:public Test,public Sports
-{
-  protected:
-    int total;
-public:
     void display()
     {
-        total=sub1+sub2+score;
-        putdata();
-        putmarks();
-        putscore();
-        cout<<"Total= "<<total;
+        cout<<"The entered string is:"<<str<<endl;
     }
 };
 
 int main()
 {
-    Result r;
-    r.getdata();
-    r.getmarks();
-    r.getscore();
-    r.display();
+    char str1[20];
+    char str2[20];
+    cout<<"Enter the first string:\n";
+    cin>>str1;
+    cout<<"Enter the second string:\n";
+    cin>>str2;
+    String s1(str1);
+    s1.display();
+    String s2(str2);
+    s2.display();
+    String s3;
+    s3.join(s1,s2);
     return 0;
 }
